@@ -1,3 +1,6 @@
 node_modules
 _site
 .cache
+src/guides.njk
+src/courses.njk
+src/tutorials.njk
