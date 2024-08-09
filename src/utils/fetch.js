@@ -4,7 +4,7 @@ export default async function (url) {
     const apiKey = process.env.API_KEY;
 
     const result = await fetch(url, {
-        duration: "0s",
+        duration: "30s",
         type: "json",
         fetchOptions: {
             headers: {

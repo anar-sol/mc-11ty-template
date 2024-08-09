@@ -1,4 +1,5 @@
 import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
+import generateCategories from "./src/utils/generateCategories.js";
 
 function getHtmlFromTextNode(textNode) {
     const strong = (textNode?.format & 0x1) !== 0;
@@ -94,6 +95,8 @@ export default function (eleventyConfig) {
     });
 
     eleventyConfig.addShortcode("year", () => new Date().getFullYear());
+
+    eleventyConfig.on("eleventy.before", generateCategories);
 
     return {
         dir: {

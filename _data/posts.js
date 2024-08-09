@@ -14,5 +14,27 @@ export default async function () {
         page = result.nextPage;
         hasNext = result.hasNextPage;
     }
-    return posts;
+
+    const categories = [];
+    page = 1;
+    hasNext = true;
+    while (hasNext) {
+        const result = await fetch(`${apiUrl}/api/categories?page=${page}`);
+        if (result.docs != null) {
+            categories.push(...result.docs);
+        }
+        page = result.nextPage;
+        hasNext = result.hasNextPage;
+    }
+
+    const content = {
+        all: posts,
+        categories: categories,
+    };
+
+    categories.forEach(category => {
+        content[category.slug] = posts.filter(post => post.category.id === category.id);
+    });
+
+    return content;
 };
