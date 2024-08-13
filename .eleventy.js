@@ -100,8 +100,9 @@ export default function (eleventyConfig) {
 
     return {
         dir: {
-            input: "src",
-            layouts: "_layouts",
+            input: "content",
+            layouts: "../src/_layouts",
+            includes: "../src/_includes",
             data: "../_data",
             markdownTemplateEngine: "njk",
             htmlTemplateEngine: "njk",
