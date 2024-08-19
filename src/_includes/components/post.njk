@@ -2,12 +2,12 @@
     <article class="post">
         <header class="post__header">
             <div class="post__metadata">
-                <a href="/{{ post.category.slug }}/">{{ post.category.name }}</a>
+                <a href="/{{ lang }}/{{ post.category.slug }}/">{{ post.category.name }}</a>
                 <time datetime="{{ post.publishedOn }}">{{ post.publishedOn | formattedDate}}</time>
             </div>
             <h1 class="post__title">{{ post.title }}</h1>
             <p class="post__excerpt">{{ post.excerpt }}</p>
-            <img class="post__featured-image" src="{{ settings.general.apiUrl }}{{ post.featuredImage.url }}"
+            <img class="post__featured-image" src="{{ settings.apiUrl }}{{ post.featuredImage.url }}"
                 alt="{{ post.featuredImage.alt }}" width="{{ post.featuredImage.width }}" height="{{ post.featuredImage.height }}" sizes="100vw">
         </header>
         <div class="post__body">

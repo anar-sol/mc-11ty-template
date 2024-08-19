@@ -138,7 +138,6 @@ body.no-scroll {
 /* ---------- logo ---------- */
 .logo {
     display: block;
-    width: var(--logo-width);
 }
 
 /* ---------- button ---------- */
@@ -655,7 +654,7 @@ body.no-scroll {
 }
 
 .branding__logo {
-    display: block;
+    margin-bottom: .5rem;
 }
 
 .branding__text {

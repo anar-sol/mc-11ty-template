@@ -1,4 +1,6 @@
 import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
+import { EleventyI18nPlugin } from "@11ty/eleventy";
+import i18n from "eleventy-plugin-i18n";
 import generateCategories from "./src/utils/generateCategories.js";
 
 function getHtmlFromTextNode(textNode) {
@@ -83,6 +85,55 @@ export default function (eleventyConfig) {
         return getHtmlFromLexicalJson(content);
     });
 
+    eleventyConfig.addPlugin(i18n, {
+        translations: {
+            "skip to main content": {
+                en: "Skip to main content",
+                fr: "Aller au contenu principal",
+            },
+            "home page": {
+                en: "Home page",
+                fr: "Page d'accueil",
+            },
+            "main menu": {
+                en: "Main menu",
+                fr: "Menu principal",
+            },
+            "close menu": {
+                en: "Close menu",
+                fr: "Fermer le menu",
+            },
+            "open menu": {
+                en: "Open menu",
+                fr: "Ouvrir le menu",
+            },
+            "follow us": {
+                en: "Follow Us!",
+                fr: "Suivez-nous!"
+            },
+            "all rights reserved": {
+                en: "all rights reserved",
+                fr: "tous droits réservés",
+            },
+            "read article": {
+                en: "Read article",
+                fr: "Lire l'article",
+            },
+            "next": {
+                en: "next",
+                fr: "suivants",
+            },
+            "previous": {
+                en: "previous",
+                fr: "précédents",
+            },
+        },
+    });
+
+    eleventyConfig.addPlugin(EleventyI18nPlugin, {
+		defaultLanguage: "en",
+	});
+
     eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
         extensions: "html",
         formats: ["webp", "jpeg"],
@@ -96,7 +147,9 @@ export default function (eleventyConfig) {
 
     eleventyConfig.addShortcode("year", () => new Date().getFullYear());
 
-    eleventyConfig.on("eleventy.before", generateCategories);
+    eleventyConfig.on("eleventy.before", (param) => generateCategories(param, ["en", "fr"]));
+
+    eleventyConfig.setUseGitIgnore(false);
 
     return {
         dir: {

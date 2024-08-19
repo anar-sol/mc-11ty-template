@@ -2,14 +2,14 @@ import fs from "fs/promises";
 import { existsSync } from "fs";
 import fetch from "./fetch.js";
 
-async function getCategories() {
+async function getCategories(lang) {
     const apiUrl = process.env.API_URL;
 
     const categories = [];
     let page = 1;
     let hasNext = true;
     while (hasNext) {
-        const result = await fetch(`${apiUrl}/api/categories?page=${page}`);
+        const result = await fetch(`${apiUrl}/api/categories?locale${lang}&page=${page}`);
         if (result.docs != null) {
             categories.push(...result.docs);
         }
@@ -20,22 +20,23 @@ async function getCategories() {
     return categories;
 }
 
-export default async function({ dir, runMode }) {
-    const categories = await getCategories();
+export default async function ({ dir, runMode }, languages) {
+        languages.forEach(async lang => {
+            const categories = await getCategories(lang);
+            categories.forEach(async category => {
+            const templatePath = `${dir.input}/${lang}/${category.slug}.njk`;
+            const template = `---\nlayout: base.njk\npagination:\n    data: posts.${lang}.${category.slug}\n    size: 10\n    alias: posts\n    generatePageOnEmptyData: true\n---
+    {% include "components/feed.njk" %}`;
 
-    categories.forEach(async category => {
-        const templatePath = `${dir.input }/${category.slug}.njk`;
-        const template = `---\nlayout: base.njk\npagination:\n    data: posts.${category.slug}\n    size: 10\n    alias: posts\n    generatePageOnEmptyData: true\n---
-{% include "components/feed.njk" %}`;
+            if (existsSync(templatePath) && runMode !== "build") return;
 
-        if (existsSync(templatePath) && runMode !== "build") return;
-
-        let templateFile;
-        try {
-            templateFile = await fs.open(templatePath, "w");
-            await templateFile.writeFile(template);
-        } finally {
-            templateFile?.close();
-        }
+            let templateFile;
+            try {
+                templateFile = await fs.open(templatePath, "w");
+                await templateFile.writeFile(template);
+            } finally {
+                templateFile?.close();
+            }
+        });
     });
 };

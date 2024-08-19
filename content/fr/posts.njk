@@ -1,11 +1,11 @@
 ---
 layout: base.njk
 pagination:
-    data: posts.all
+    data: posts.fr.all
     size: 1
     alias: post
     generatePageOnEmptyData: true
-permalink: "/{{ post.slug }}/"
+permalink: "/{{ lang }}/{{ post.slug }}/"
 eleventyComputed:
     title: "{{ post.metaTitle or post.title }}"
     description: "{{ post.metaDescription or post.excerpt }}"

@@ -1,6 +1,5 @@
 node_modules
 _site
 .cache
-content/guides.njk
-content/courses.njk
-content/tutorials.njk
+content/en/articles.njk
+content/fr/articles.njk

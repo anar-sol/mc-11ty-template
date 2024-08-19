@@ -1,26 +1,171 @@
 import fetch from "../src/utils/fetch.js";
 
 export default async function () {
-    const apiUrl = process.env.API_URL;
+    const apiUrl = process.env.API_URL;    
 
-    const settings = {};
+    const settings = {
+        en: {},
+        fr: {},
+        apiUrl: apiUrl,
+    };
 
-    const general = await fetch(`${apiUrl}/api/globals/general`);
-    const mainNavResult = await fetch(`${apiUrl}/api/globals/main-nav`);
-    const secondaryNavResult = await fetch(`${apiUrl}/api/globals/secondary-nav`);
-    const socialMediaResult = await fetch(`${apiUrl}/api/globals/social-media`);
+    const generalEN = await fetch(`${apiUrl}/api/globals/general?locale=en`);
+    const generalFR = await fetch(`${apiUrl}/api/globals/general?locale=fr`);
 
-    const mainNav = mainNavResult.items.map(item => item.navItem)
-    const mainCta = mainNavResult.cta;
-    const secondaryNav = secondaryNavResult.items.map(item => item.navItem);
-    const socialMedia = socialMediaResult.items.map(item => item.navItem);
+    settings.en.general = generalEN;
+    settings.fr.general = generalFR;
 
-    settings.general = general;
-    settings.general.apiUrl = apiUrl;
-    settings.mainNav = mainNav;
-    settings.mainCta = mainCta;
-    settings.secondaryNav = secondaryNav;
-    settings.socialMedia = socialMedia;
+    settings.en.mainNav = [
+        {
+            label: "Home",
+            url: "/en/",
+        },
+        {
+            label: "Articles",
+            url: "/en/articles/"
+        },
+        /*
+        {
+            label: "Tutorials",
+            url: "/en/tutorials/",
+        },
+        {
+            label: "Guides",
+            url: "/en/guides/",
+        },
+        */
+        {
+            label: "About us",
+            url: "/en/about-us/",
+        },
+        {
+            label: "Contact us",
+            url: "/en/contact-us/",
+        },
+    ];
+
+    settings.fr.mainNav = [
+        {
+            label: "Accueil",
+            url: "/fr/",
+        },
+        {
+            label: "Articles",
+            url: "/fr/articles/"
+        },
+        /*
+        {
+            label: "Tutos",
+            url: "/fr/tutoriels/",
+        },
+        {
+            label: "Guides",
+            url: "/fr/guides/",
+        },
+        */
+        {
+            label: "À propos",
+            url: "/fr/a-propos/",
+        },
+        {
+            label: "Contact",
+            url: "/fr/nous-contacter/",
+        },
+    ];
+
+    settings.en.mainCta = {
+        label: "Shop",
+        url: "https://www.etsy.com/fr/shop/MimiCouturePatterns"
+    };
+
+    settings.fr.mainCta = {
+        label: "Boutique",
+        url: "https://www.etsy.com/fr/shop/MimiCouturePatterns"
+    };
+
+    settings.en.socialMedia = [
+        {
+            label: "Youtube",
+            url:"https://www.youtube.com/@diysewingmimi", 
+        },
+    ];
+
+    settings.fr.socialMedia = [
+        {
+            label: "Youtube",
+            url:"https://www.youtube.com/@CoutureFacileMimi", 
+        },
+    ];
+
+    settings.en.secondaryNav = [
+        {
+            label: "Home",
+            url: "/en/",
+        },
+        {
+            label: "Tutorials",
+            url: "/en/tutorials/",
+        },
+        {
+            label: "Guides",
+            url: "/en/guides/",
+        },
+        {
+            label: "Shop",
+            url: "https://www.etsy.com/fr/shop/MimiCouturePatterns"
+        },
+        {
+            label: "About us",
+            url: "/en/about-us/",
+        },
+        {
+            label: "Contact us / FAQ",
+            url: "/en/contact-us/",
+        },
+        {
+            label: "Privacy",
+            url: "/en/privacy/",
+        },
+        {
+            label: "Terms and conditions",
+            url: "/en/terms-and-conditions/",
+        },
+    ];
+
+    settings.fr.secondaryNav = [
+        {
+            label: "Accueil",
+            url: "/fr/",
+        },
+        {
+            label: "Tutos",
+            url: "/fr/tutoriels/",
+        },
+        {
+            label: "Guides",
+            url: "/fr/guides/",
+        },
+        {
+            label: "Boutique",
+            url: "https://www.etsy.com/fr/shop/MimiCouturePatterns"
+        },
+        {
+            label: "À propos",
+            url: "/fr/a-propos/",
+        },
+        {
+            label: "Contact / FAQ",
+            url: "/fr/nous-contacter/",
+        },
+        {
+            label: "Confidentialité",
+            url: "/fr/confidentialite/",
+        },
+        {
+            label: "Conditions générales",
+            url: "/fr/conditions-generales/",
+        },
+    ];
 
     return settings;
 };

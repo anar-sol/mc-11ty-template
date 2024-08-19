@@ -3,24 +3,24 @@
         {% for post in posts %}
             <li>
                 <article class="card">
-                    <img class="card__image" src="{{ settings.general.apiUrl }}{{ post.featuredImage.url }}"
+                    <img class="card__image" src="{{ settings.apiUrl }}{{ post.featuredImage.url }}"
                         alt="{{ post.featuredImage.alt }}" width="{{ post.featuredImage.width }}" height="{{ post.featuredImage.height }}" sizes="100vw">
                     <h2 class="card__title">
-                        <a href="/{{ post.slug }}/">{{ post.title }}</a>
+                        <a href="/{{ lang }}/{{ post.slug }}/">{{ post.title }}</a>
                     </h2>
                     <p class="card__excerpt">{{ post.excerpt }}</p>
-                    <a class="btn btn--link card__cta" href="/{{ post.slug }}/" aria-label="read the article: {{ post.title }}">Read article</a>
+                    <a class="btn btn--link card__cta" href="/{{ lang }}/{{ post.slug }}/" aria-label="{{ 'read article' | i18n }}: {{ post.title }}">{{ 'read article' | i18n }}</a>
                 </article>
             </li>
         {% endfor %}
     </ul>
     <div class="pagination">
         {% if pagination.pageNumber != 0 %}
-            <a href="{{ pagination.href.previous }}" class="pagination__link">&lt; next</a>
+            <a href="{{ pagination.href.previous }}" class="pagination__link">&lt; {{ "next" | i18n }}</a>
         {% endif %}
         <span class="pagination__pages">{{ pagination.pageNumber + 1 }} / {{ pagination.pages.length }}</span>
         {% if pagination.pageNumber != pagination.pages.length - 1 %}
-            <a href="{{ pagination.href.next }}" class="pagination__link">previous &gt;</a>
+            <a href="{{ pagination.href.next }}" class="pagination__link">{{ "previous" | i18n }} &gt;</a>
         {% endif %}
     </div>
 </div>
