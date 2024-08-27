@@ -43,7 +43,7 @@ function getHtmlFromNode(node) {
                 return `
                     <figure>
                         <img src="${apiUrl}${childNode.value.url}" alt="${childNode.value.alt}" width="${childNode.value.width}" height="${childNode.value.height}" sizes="100w">
-                        <figcaption>${ childNode.value.caption }</figcaption>
+                        <figcaption>${childNode.value.caption || ""}</figcaption>
                     </figure>
                 `;
             case "relationship":
@@ -54,7 +54,7 @@ function getHtmlFromNode(node) {
                             title="YouTube video player" frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                        <figcaption>${ childNode.value.caption }</figcaption>
+                        <figcaption>${childNode.value.caption}</figcaption>
                     </figure>
                 `;
             case "paragraph":
@@ -127,12 +127,19 @@ export default function (eleventyConfig) {
                 en: "previous",
                 fr: "précédents",
             },
+            "get pattern": {
+                en: "Get the Pattern!",
+                fr: "Obtenir le Patron!"
+            },
+        },
+        fallbackLocales: {
+            '*': 'en'
         },
     });
 
     eleventyConfig.addPlugin(EleventyI18nPlugin, {
-		defaultLanguage: "en",
-	});
+        defaultLanguage: "en",
+    });
 
     eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
         extensions: "html",
@@ -148,6 +155,8 @@ export default function (eleventyConfig) {
     eleventyConfig.addShortcode("year", () => new Date().getFullYear());
 
     eleventyConfig.on("eleventy.before", (param) => generateCategories(param, ["en", "fr"]));
+
+    eleventyConfig.addPassthroughCopy("_redirects");
 
     eleventyConfig.setUseGitIgnore(false);
 

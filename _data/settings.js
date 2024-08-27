@@ -21,19 +21,9 @@ export default async function () {
             url: "/en/",
         },
         {
-            label: "Articles",
-            url: "/en/articles/"
-        },
-        /*
-        {
             label: "Tutorials",
             url: "/en/tutorials/",
         },
-        {
-            label: "Guides",
-            url: "/en/guides/",
-        },
-        */
         {
             label: "About us",
             url: "/en/about-us/",
@@ -50,19 +40,9 @@ export default async function () {
             url: "/fr/",
         },
         {
-            label: "Articles",
-            url: "/fr/articles/"
-        },
-        /*
-        {
             label: "Tutos",
             url: "/fr/tutoriels/",
         },
-        {
-            label: "Guides",
-            url: "/fr/guides/",
-        },
-        */
         {
             label: "À propos",
             url: "/fr/a-propos/",
@@ -107,10 +87,6 @@ export default async function () {
             url: "/en/tutorials/",
         },
         {
-            label: "Guides",
-            url: "/en/guides/",
-        },
-        {
             label: "Shop",
             url: "https://www.etsy.com/fr/shop/MimiCouturePatterns"
         },
@@ -140,10 +116,6 @@ export default async function () {
         {
             label: "Tutos",
             url: "/fr/tutoriels/",
-        },
-        {
-            label: "Guides",
-            url: "/fr/guides/",
         },
         {
             label: "Boutique",

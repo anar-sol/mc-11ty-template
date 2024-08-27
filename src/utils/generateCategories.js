@@ -9,7 +9,7 @@ async function getCategories(lang) {
     let page = 1;
     let hasNext = true;
     while (hasNext) {
-        const result = await fetch(`${apiUrl}/api/categories?locale${lang}&page=${page}`);
+        const result = await fetch(`${apiUrl}/api/categories?locale=${lang}&page=${page}`);
         if (result.docs != null) {
             categories.push(...result.docs);
         }
@@ -20,7 +20,7 @@ async function getCategories(lang) {
     return categories;
 }
 
-export default async function ({ dir, runMode }, languages) {
+export default function ({ dir, runMode }, languages) {
         languages.forEach(async lang => {
             const categories = await getCategories(lang);
             categories.forEach(async category => {

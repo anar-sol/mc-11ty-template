@@ -10,8 +10,15 @@
             <img class="post__featured-image" src="{{ settings.apiUrl }}{{ post.featuredImage.url }}"
                 alt="{{ post.featuredImage.alt }}" width="{{ post.featuredImage.width }}" height="{{ post.featuredImage.height }}" sizes="100vw">
         </header>
+        {% set pattern = post.pattern %}
+        {% if pattern %}
+            {% include "components/pattern.njk" %}
+        {% endif %}
         <div class="post__body">
             {{ post.content | tohtml | safe }}
         </div>
+        {% if pattern %}
+            {% include "components/pattern.njk" %}
+        {% endif %}
     </article>
 </div>
